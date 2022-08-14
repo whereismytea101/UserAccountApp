@@ -58,8 +58,7 @@ final class MainViewController: UIViewController {
 }
 
 // MARK: - UIAlertMainViewController
- 
-// !!! Одинаковые функции! Обьединить в одну общую
+
 extension MainViewController {
     private func showLoginAlert(with title: String, and message: String) {
         let loginAlert = UIAlertController(title: title,
