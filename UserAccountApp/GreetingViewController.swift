@@ -13,7 +13,7 @@ final class GreetingViewController: UIViewController {
     @IBOutlet var greetingLabel: UILabel!
     @IBOutlet var logOutButton: UIButton!
     
-     var userName: String!
+    var userName: String!
     private let gradientLayer = CAGradientLayer()
 
     override func viewDidLoad() {
@@ -22,7 +22,6 @@ final class GreetingViewController: UIViewController {
         setupGradient()
         }
     
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let mainVC = segue.source as? MainViewController else { return }
         mainVC.userNameLableTF.text = ""
@@ -39,7 +38,7 @@ final class GreetingViewController: UIViewController {
             UIColor.systemPurple.cgColor,
             UIColor.systemPink
         ]
-        self.view.layer.insertSublayer(gradientLayer, at: 0)
+        view.layer.insertSublayer(gradientLayer, at: 0)
    }
 }
 
