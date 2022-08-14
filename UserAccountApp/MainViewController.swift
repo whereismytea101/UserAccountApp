@@ -9,8 +9,8 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
-    @IBOutlet var userNameLable: UITextField!
-    @IBOutlet var userPasswordLable: UITextField!
+    @IBOutlet var userNameLableTF: UITextField!
+    @IBOutlet var userPasswordLableTF: UITextField!
     
     @IBOutlet var logInButton: UIButton!
     
@@ -18,56 +18,57 @@ final class MainViewController: UIViewController {
     @IBOutlet var rememberingPassword: UIButton!
     
     
+    private let userName = "User"
+    private let userPassword = "Password"
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    private let userName = "User"
-    private let userPassword = "Password"
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let greetingVC = segue.destination as? GreetingViewController else { return }
+        greetingVC.userName = "Welcome, \(userNameLableTF.text ?? "" )"
+    }
     
     
-    @IBAction func logInButtonPressed(){
-        
-        guard let inputUserName = userNameLable.text, !inputUserName.isEmpty else {
+    @IBAction func logInButtonPressed() {
+        guard let inputUserName = userNameLableTF.text, !inputUserName.isEmpty else {
             showLoginAlert(with: "Inavalid login or password",
                            and: "Please enter correct login and password")
             return
         }
-        
-        guard let inputPassword = userPasswordLable.text, !inputPassword.isEmpty else {
+        guard let inputPassword = userPasswordLableTF.text, !inputPassword.isEmpty else {
             showPasswordinAlert(with: "Inavalid login or password",
                                 and: "Please enter correct login and password")
             return
         }
-    }
-    
+}
     
     
     @IBAction func rememberingUserNameButton() {
-        showLoginAlert(with: "Oops!🔥", and: "Your User Name is User 👀")
+        showLoginAlert(with: "Oops!🔥",
+                       and: "Your User Name is \(userName) 👀")
     }
-    
     
     @IBAction func rememberingPasswordButton() {
-        showPasswordinAlert(with: "Oops!🔥", and: "Your Password is Password 👀")
-        
+        showPasswordinAlert(with: "Oops!🔥",
+                            and: "Your Password is \(userPassword) 👀")
     }
-    
-    
-    
-
-
 }
 
 // MARK: - UIAlertMainViewController
  
+// !!! Одинаковые функции! Обьединить в одну общую
 extension MainViewController {
     private func showLoginAlert(with title: String, and message: String) {
-        let loginAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let loginAlert = UIAlertController(title: title,
+                                           message: message,
+                                           preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-            //
+            self.userNameLableTF.text = ""
+            self.userPasswordLableTF.text = ""
         }
         
         loginAlert.addAction(okAction)
@@ -75,10 +76,13 @@ extension MainViewController {
     }
     
     private func showPasswordinAlert(with title: String, and message: String) {
-        let passwordAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let passwordAlert = UIAlertController(title: title,
+                                              message: message,
+                                              preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-            //
+            self.userPasswordLableTF.text = ""
+            self.userNameLableTF.text = ""
         }
         
         passwordAlert.addAction(okAction)

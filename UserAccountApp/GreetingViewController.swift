@@ -13,20 +13,34 @@ final class GreetingViewController: UIViewController {
     @IBOutlet var greetingLabel: UILabel!
     @IBOutlet var logOutButton: UIButton!
     
+    var userName: String!
+    private let gradientLayer = CAGradientLayer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-//        let gradientLayer = CAGradientLayer()
-//        gradientLayer.frame = view.bounds
-//        gradientLayer.colors = [
-//            UIColor.systemPink.cgColor,
-//            UIColor.systemBlue.cgColor
-//        ]
-//        view.layer.addSublayer(gradientLayer)
+        greetingLabel.text = userName
+        setupGradient()
         }
     
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let mainVC = segue.source as? MainViewController else { return }
+        mainVC.userNameLableTF.text = ""
+        mainVC.userPasswordLableTF.text = ""
+    }
+    
     @IBAction func logOutButtonPressed() {
-        
+        dismiss(animated: true)
     }
-    }
+    
+    private func setupGradient() {
+        gradientLayer.frame = view.bounds
+        gradientLayer.colors = [
+            UIColor.systemPurple.cgColor,
+            UIColor.systemRed.cgColor,
+            UIColor.systemPink
+        ]
+        view.layer.addSublayer(gradientLayer)
+   }
+}
+
