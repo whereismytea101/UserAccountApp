@@ -11,26 +11,15 @@ final class GreetingViewController: UIViewController {
     
     
     @IBOutlet var greetingLabel: UILabel!
-    @IBOutlet var logOutButton: UIButton!
     
-    var userName: String!
+   var userName = ""
     private let gradientLayer = CAGradientLayer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        greetingLabel.text = userName
         setupGradient()
+        greetingLabel.text = "Welcome, \(userName)!"
         }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let mainVC = segue.source as? MainViewController else { return }
-        mainVC.userNameLableTF.text = ""
-        mainVC.userPasswordLableTF.text = ""
-    }
-    
-    @IBAction func logOutButtonPressed() {
-        dismiss(animated: true)
-    }
     
     private func setupGradient() {
         gradientLayer.frame = view.bounds
